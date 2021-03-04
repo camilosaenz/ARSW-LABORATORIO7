@@ -53,17 +53,51 @@ var apimock = (function () {
             ]
         }
     ]
+    
+    mockdata['Carlos'] = [
+         {
+             author: 'Carlos',
+             name: 'city',
+             points: [
+                 {
+                     x: 10,
+                     y: 15
+                 },
+                 {
+                     x: 20,
+                     y: 25
+                 }
+             ]
+         }
+     ]
+    
+    mockdata['Camilo'] = [
+	      {
+	          author: 'Camilo',
+	          name: 'town',
+	          points: [
+	              {
+	                  x: 5,
+	                  y: 10
+	              },
+	              {
+	                  x: 30,
+	                  y: 35
+	              }
+	          ]
+	      }
+	  ]
 
     return {
         getBlueprintsByAuthor: function(author, callback) {
-            callback(null, mockdata[author]);
+            callback(mockdata[author]);
         },
 
         getBlueprintsByNameAndAuthor: function(name, author, callback) {
             blueprint = mockdata[author].find(function(blueprint) {
                 return blueprint.name == name
             });
-            callback(null, blueprint)
+            callback(blueprint)
         }
     }
 
