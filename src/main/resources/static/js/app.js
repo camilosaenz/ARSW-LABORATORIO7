@@ -26,6 +26,19 @@ var app = (function() {
                 api.getBlueprintsByAuthor(author, createTable);
             }
     }
+	
+	var getBlueprintsByNameAndAuthor = function (author, name)
+	{
+		if(author == null || author == "" || name == null || name == "")
+		{
+			alert("Invalid data");
+		}else 
+		{
+			nameAuthor = author;
+			nameBlueprint = name;
+			api.getBlueprintsByNameAndAuthor(nameBlueprint, nameAuthor);
+		}
+	}
     
     var createTable = function(blueprints) {
     	blueprints = map(blueprints);

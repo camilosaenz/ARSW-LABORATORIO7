@@ -85,7 +85,21 @@ var apimock = (function () {
 	                  y: 35
 	              }
 	          ]
-	      }
+	      },
+		  {
+			  author: 'Camilo',
+			  name: 'city',
+			  points: [
+				{
+					x: 10,
+                    y: 15
+                },
+                {
+                    x: 20,
+                    y: 25
+                }
+			  ]
+		  }
 	  ]
 
     return {

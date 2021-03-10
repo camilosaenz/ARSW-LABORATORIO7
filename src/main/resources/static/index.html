@@ -44,7 +44,32 @@
 	    <div id="totalPoints">
 	        <h2></h2>
 	    </div>
-	    
+		<br></br>
+		<h2> Blueprints </h2>
+	    <label for="fname">Author: </label>
+	    <input type="text" id="textAuthor">
+		<label for="fname">Blueprint: </label>
+	    <input type="text" id="textBlueprint">
+	    <button type="button" class="favorite styled" id="buttonBlueprint" onclick="app.getBlueprintsByNameAndAuthor(textAuthor.value, textBlueprint.value);" > 
+	    	Get Blueprints 
+	    </button>  
+	    <h3>Tabla de Datos:</h3>
+	    <div class="column">
+	        <table id="table">
+	        <thead>
+	        <tr class="table-active">
+	        	<th>Nombre Blueprint</th>
+	  			<th>Puntos</th>
+			</tr>
+	        </thead>
+	        <tbody>
+	        </tbody>
+	    	</table>
+	    </div>
+		<div>
+			<canvas id="myCanvas" width="800" height="200" style="border:1px solid #000000;">
+			</canvas> 
+		</div>
 	</div>
 </body>
 
