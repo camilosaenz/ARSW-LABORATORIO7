@@ -1,4 +1,5 @@
-var api = apimock;
+//var api = apimock;
+var api = apiclient;
 var app = (function() {
 	
 	var blueprint ={author:null , name: null, points:[]}
@@ -26,19 +27,12 @@ var app = (function() {
                 api.getBlueprintsByAuthor(author, createTable);
             }
     }
-	
-	var getBlueprintsByNameAndAuthor = function (author, name)
-	{
-		if(author == null || author == "" || name == null || name == "")
-		{
-			alert("Invalid data");
-		}else 
-		{
-			nameAuthor = author;
-			nameBlueprint = name;
-			api.getBlueprintsByNameAndAuthor(nameBlueprint, nameAuthor);
-		}
-	}
+    
+    var getBlueprintsByNameAndAuthor = function(author,name){
+        memory = [];
+        nameAuthor=author;
+        api.getBlueprintsByNameAndAuthor(name,author,draw);
+    }
     
     var createTable = function(blueprints) {
     	blueprints = map(blueprints);
@@ -52,19 +46,46 @@ var app = (function() {
                     "<td>" +
                     bp.pointsCount +
                     "</td> " +
+                    "<td><form><button type='button' onclick='app.getBlueprintsByNameAndAuthor( \"" +
+                    nameAuthor +
+                    '" , "' +
+                    bp.name +
+                    "\")' >Open</button></form></td>" +
                     "</tr>"
                     );
         	});
         }
+    
+    var draw= function(blueprints){
 
-     return{
-         init:function(){
-            var valor = document.getElementById("name"),
+        blueprint = blueprints;
+        memory.map(function(element){
+              blueprint.points.push(element)
+        });
+        var start = blueprint.points[0];
+        $("#myCanvas").text("Blueprint:" +blueprint.name);
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.clearRect(0,0,500,300);
+        ctx.beginPath();
+        ctx.strokeStyle= 'red';
+        ctx.moveTo(start.x,start.y);
+        blueprint.points.map(function(point){
+            ctx.lineTo(point.x,point.y);
+        })
+        ctx.stroke();
+        ctx.closePath();
+    }
 
+    return{
+    	init:function(){
+    		var canvas = document.getElementById("myCanvas"),
+    		context = canvas.getContext("2d")
             nameAuthor=null;
-
-         },
-         getBlueprintsByAuthor : getBlueprintsByAuthor,
-     };
+    		draw(blueprint);
+        },
+        getBlueprintsByAuthor : getBlueprintsByAuthor,
+        getBlueprintsByNameAndAuthor :getBlueprintsByNameAndAuthor
+    };
 
 })();
