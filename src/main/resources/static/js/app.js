@@ -59,9 +59,7 @@ var app = (function() {
     var draw= function(blueprints){
 
         blueprint = blueprints;
-        memory.map(function(element){
-              blueprint.points.push(element)
-        });
+        
         var start = blueprint.points[0];
         $("#myCanvas").text("Blueprint:" +blueprint.name);
         var c = document.getElementById("myCanvas");
@@ -82,7 +80,36 @@ var app = (function() {
     		var canvas = document.getElementById("myCanvas"),
     		context = canvas.getContext("2d")
             nameAuthor=null;
-    		draw(blueprint);
+    		
+    		if(window.PointerEvent) {
+                canvas.addEventListener("pointerdown", function(event){
+                    var rect= canvas.getBoundingClientRect();
+                    var puntos = {
+                    	x : event.pageX-rect.left,
+                    	y : event.pageY-rect.top
+                    }
+                   
+                    blueprint.points.push(puntos);
+                    memory.push(puntos);
+                    draw(blueprint);
+
+                    });
+
+            }
+            else {
+                canvas.addEventListener("mousedown", function(event){
+                	var rect= canvas.getBoundingClientRect();
+                	var puntos = {
+                        	x : event.pageX-rect.left,
+                        	y : event.pageY-rect.top
+                    }
+
+                alert('mousedown at '+x+','+y);
+                });
+            }
+
+
+    		
         },
         getBlueprintsByAuthor : getBlueprintsByAuthor,
         getBlueprintsByNameAndAuthor :getBlueprintsByNameAndAuthor
