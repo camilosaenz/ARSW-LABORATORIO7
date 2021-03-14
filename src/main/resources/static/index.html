@@ -1,58 +1,115 @@
 <html>
 
 <head>
-	<title>Blueprints</title>
-	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="/webjars/jquery/3.1.0/jquery.min.js"></script>
-	<script src="/webjars/bootstrap/4.1.2/js/bootstrap.min.js"></script>
-	<script src="js/apiclient.js"></script>
-	<script src="js/apimock.js"></script>
-	<script src="js/app.js"></script>
-	<link rel="stylesheet" href="/webjars/bootstrap/4.1.2/css/bootstrap.min.css"/>
+<title>Blueprints</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/webjars/jquery/3.1.0/jquery.min.js"></script>
+<script src="/webjars/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+<script src="js/apiclient.js"></script>
+<script src="js/apimock.js"></script>
+<script src="js/app.js"></script>
+<link rel="stylesheet"
+	href="/webjars/bootstrap/4.1.2/css/bootstrap.min.css" />
 </head>
 
-<body onLoad="app.init()" bgcolor="#cddf89">
-<center>
+<style>
+body {
+	background-color: #47EEE9;
+}
 
-	<font size="6" color="#df7644" face="Tahoma">
-	Menú Principal:
-	</font>
-	
-	<div id="bodyDiv">
-	
-	    <h1> Blueprints </h1>
-	    <label for="fname">Author: </label>
-	    <input type="text" id="textAuthor">
-	    <button type="button" class="favorite styled" id="buttonBlueprints" onclick="app.getBlueprintsByAuthor(textAuthor.value);" > 
-	    	Get Blueprints 
-	    </button>  
-	    <h2>Tabla de Datos:</h2>
-	    <div class="column">
-	        <table id="table">
-	        <thead>
-	        <tr class="table-active">
-	        	<th>Nombre Blueprint</th>
-	  			<th>Puntos</th>
-	  			<th>Open</th>
-			</tr>
-	        </thead>
-	        <tbody>
-	        </tbody>
-	    	</table>
-	    </div>
-		
-	    <div id="totalPoints">
-	        <h2></h2>
-	    </div>
-		<div>
-			<canvas id="myCanvas" width="500" height="300" style="border:1px solid #000000;">
-			</canvas> 
+@import
+@import
+	url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap')
+	;
+
+h1,a,input,button,h2,th,div,font,body {
+	font-family: 'Brush Script MT', cursive;
+	color: #010100;
+}
+
+table,th {
+	border: 1px solid black;
+}
+
+table th {
+	text-align: center;
+}
+</style>
+<style type="text/css">
+div#ca {
+	position: absolute;
+	left: 850px;
+	top: 150px;
+}
+
+div#saveupdate {
+	position: absolute;
+	left: 875px;
+	top: 460px;
+	float: right;
+}
+</style>
+
+<body onLoad="app.init()" bgcolor="#22EEE8">
+	<center>
+
+		<font size="6" color="#df7644" face="Tahoma"> Menú Principal: </font>
+
+		<div id="bodyDiv">
+
+			<h1>Blueprints</h1>
+			<label for="fname">Author: </label> <input type="text"
+				id="textAuthor" placeholder="Nombre Author" required>
+			<button type="button" class="favorite styled" id="buttonBlueprints"
+				onclick="app.getBlueprintsByAuthor(textAuthor.value);">Get
+				Blueprints</button>
+			<h2>Tabla de Datos:</h2>
+			<div class="column">
+				<table id="table">
+					<thead>
+						<tr class="table-active">
+							<th>Nombre Blueprint</th>
+							<th>Puntos</th>
+							<th>Open</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+
+			<div id="totalPoints">
+				<h2></h2>
+			</div>
+			<div>
+				<canvas id="myCanvas" width="500" height="300"
+					style="border: 1px solid #000000;">
+			</canvas>
+			</div>
+			<br></br>
+			<div>
+				<button type="button" id="saveBlueprint" onclick="app.saveUpdate();">Save/Update</button>
+				<br></br>
+				<button type="button" id="openBlueprint"
+					onclick="app.openBlueprint();">Abrir Menú</button>
+			</div>
+			<div class="openBP">
+				<div class="openBP" id="openBP">
+					<form class="form-container">
+						<h2>Crea un nuevo Blueprint</h2>
+						<label for="name"> <strong>Nombre Blueprint</strong>
+						</label> <input type="text" id="name" placeholder="Nombre" name="name"
+							required>
+						<button type="submit" class="btn"
+							onclick="app.createBlueprint(name.value);">Crear</button>
+						<button type="button" class="btn cancel"
+							onclick="app.closeBlueprint();">Cerrar Menú</button>
+					</form>
+				</div>
+			</div>
 		</div>
-	</div>
-</center>
+	</center>
 </body>
-
-
 </html>
