@@ -77,4 +77,9 @@ public class BlueprintsServices {
         return bpp.getBlueprintByAuthor(author);
     }
 
+	public void deleteBlueprint(String author, String name) {
+		bpp.deleteBlueprint(author, name);
+		
+	}
+
 }

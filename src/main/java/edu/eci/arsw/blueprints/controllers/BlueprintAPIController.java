@@ -84,5 +84,11 @@ public class BlueprintAPIController {
             return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);
         }
     }
+    
+    @RequestMapping(path = "/{author}/{name}",method = RequestMethod.DELETE)	
+    public ResponseEntity<?> deleteBlueprint(@PathVariable ("author") String author, @PathVariable ("name") String name, @RequestBody Blueprint bp ){
+        bps.deleteBlueprint(author, name);
+		return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    }
 }
 

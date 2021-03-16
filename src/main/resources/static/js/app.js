@@ -27,19 +27,13 @@ var app = (function() {
 	}
 
 	var getBlueprintsByAuthor = function(author) {
-
-		if (author == null || author == "") {
-			alert("invalid author");
-		} else {
-			nameAuthor = author;
-			api.getBlueprintsByAuthor(author, createTable);
-		}
+		nameAuthor = author;
+		api.getBlueprintsByAuthor(nameAuthor, createTable);
 	}
 
 	var getBlueprintsByNameAndAuthor = function(author, name) {
-		memory = [];
 		nameAuthor = author;
-		api.getBlueprintsByNameAndAuthor(name, author, draw);
+		api.getBlueprintsByNameAndAuthor(name, nameAuthor, draw);
 	}
 
 	var createTable = function(blueprints) {
@@ -56,7 +50,7 @@ var app = (function() {
 											+ "<td>"
 											+ bp.pointsCount
 											+ "</td> "
-											+ "<td><form><button type='button' onclick='app.getBlueprintsByNameAndAuthor( \""
+											+ "<td><form><button class='btn btn-secondary' type='button' onclick='app.getBlueprintsByNameAndAuthor( \""
 											+ nameAuthor + '" , "' + bp.name
 											+ "\")' >Open</button></form></td>"
 											+ "</tr>");
@@ -83,39 +77,33 @@ var app = (function() {
 	}
 
 	var saveUpdate = function() {
-		if (blueprint != null) {
-			return $.ajax({
-				url : "/blueprints/" + blueprint.author + "/" + blueprint.name,
-				type : 'PUT',
-				data : JSON.stringify(blueprint),
-				contentType : "application/json"
-			})
+		api.saveUpdate(blueprint, getBlueprintsByAuthor)
+		
+	}
+
+	var createBlueprint = function() {
+		if (nameAuthor != null) {
+			var name = prompt("Escribe el nombre del blueprint del author: " + nameAuthor);
+			api.createBlueprint(nameAuthor, name, openBlueprint)
+		} else {
+			alert("No se especifico el autor!");
 		}
 	}
 
-	var createBlueprint = function(name) {
-		blueprint.push({
-			name : name
-		});
-		console.log(blueprint);
-		return $.ajax({
-			url : "/blueprints/" + blueprint.author + "/" + blueprint.name,
-			type : 'PUT',
-			data : JSON.stringify(blueprint),
-			contentType : "application/json"
-		})
-
-	}
-
 	var openBlueprint = function() {
-		document.getElementById("openBP").style.display = "block";
-		var canvas = document.getElementById("myCanvas"), context = canvas
-				.getContext("2d");
-		context.clearRect(0, 0, canvas.width, canvas.height);
+		var canvas = document.getElementById("myCanvas");
+		var ctx = canvas.getContext("2d");
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		ctx.beginPath();
+		getBlueprintsByAuthor(nameAuthor);
 	}
-
-	var closeBlueprint = function() {
-		document.getElementById("openBP").style.display = "none";
+	
+	var deleteBlueprint = function(){
+		if(blueprint != null){
+			api.deleteBlueprint(blueprint, getBlueprintsByAuthor);
+		}else{
+			alert("No se especifico el autor!");
+		}
 	}
 
 	return {
@@ -154,9 +142,8 @@ var app = (function() {
 		getBlueprintsByAuthor : getBlueprintsByAuthor,
 		getBlueprintsByNameAndAuthor : getBlueprintsByNameAndAuthor,
 		saveUpdate : saveUpdate,
-		createBluprint : createBlueprint,
-		closeBlueprint : closeBlueprint,
-		openBlueprint : openBlueprint
+		createBlueprint : createBlueprint,
+		deleteBlueprint : deleteBlueprint
 	};
 
 })();
